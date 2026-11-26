@@ -5,7 +5,7 @@ class Land{
     private:
         int landid;
         float area;
-        string soiltype;
+        string soiltype; 
         string irrigationsource;
         bool wateravailability;
     public:
