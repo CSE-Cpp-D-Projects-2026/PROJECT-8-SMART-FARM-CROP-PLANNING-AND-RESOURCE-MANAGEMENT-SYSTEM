@@ -44,7 +44,7 @@ public:
 	{
 		if(landid==id)
 		{
-			displayLandDetails();
+			displayLandDetails()
 			return 1;
 		}
 		return 0;
