@@ -1,20 +1,17 @@
-
 #include<iostream>
 #include<string>
 using namespace std;
 class Land{
     private:
-        int landID;
+        int landid;
         float area;
         string soiltype;
         string irrigationsource;
-        int wateravailability;
-
+        bool wateravailability;
     public:
-      //------------Gets land details------------//
         void getLandDetails(){
             cout<<"Enter Land ID: ";
-            cin>>landID;
+            cin>>landid;
             cout<<"Enter the Area of the Land: ";
             cin>>area;
             cout<<"Enter the Soil Type: ";
@@ -23,53 +20,37 @@ class Land{
             getline(cin>>ws,irrigationsource);
             cout<<"Enter the Water Availability (0/1): ";
             cin>>wateravailability;
+            cout<<endl;
         }
-           //-------------displays land details----------------//
         void displayLandDetails(){
-            cout<<"\n============== Land Details ==============\n";
-            cout<<"Land ID: "<<landID<<endl;
+            cout<<"/n============== Land Details =============="<<endl;
+            cout<<"Land ID: "<<landid<<endl;
             cout<<"Total Area: "<<area<<endl;
             cout<<"Soil Type: "<<soiltype<<endl;
             cout<<"Irrigation Source: "<<irrigationsource<<endl;
-
-            if(wateravailability==1){
-                cout<<"Water Availability: Available"<<endl;
-            }
-            else{
-                cout<<"Water Availability: Not Available"<<endl;
-            }
+            cout<<"Water Availability: "<<(wateravailability?"Available":"Not Available")<<endl;
         }
-         //--------------------searches the land--------------------//
-        int searchLand(int id)
-        {
-            if(landID==id){
+        int searchLand(int id){
+            if(landid==id){
                 displayLandDetails();
                 return 1;
             }
             return 0;
         }
-
-       //---------------Updates the land details after modifying---------//
-        int updateLandDetails(int id)
-        {
-            if(landID==id){
-                cout<<"\n========== Update Land Details ==========\n";
-                cout<<"Enter New Area: ";
-                cin>>area;
-                cout<<"Enter New Soil Type: ";
-                getline(cin>>ws,soiltype);
-                cout<<"Enter New Irrigation Source: ";
-                getline(cin>>ws,irrigationsource);
-                cout<<"Enter New Water Availability (0/1): ";
-                cin>>wateravailability;
-                cout<<"\nLand Details Updated Successfully!"<<endl;
-
-                return 1;
-            }
-            return 0;
+        void updateLandDetails(){
+            cout<<"\nEnter New Land ID: ";
+            cin>>landid;
+            cout<<"Enter New Area of the Land: ";
+            cin>>area;
+            cout<<"Enter New Soil Type: ";
+            getline(cin>>ws,soiltype);
+            cout<<"Enter New Irrigation Source: ";
+            getline(cin>>ws,irrigationsource);
+            cout<<"Enter New Water Availability (0/1): ";
+            cin>>wateravailability;
+            cout<<"\nLand Details Updated Successfully!"<<endl;
         }
 };
-
 int main()
 {
     int n,id,choice;
@@ -81,9 +62,7 @@ int main()
         cout<<"Invalid Number of Lands!";
         return 0;
     }
-  //------------------Gets the land details ------------------//
     Land l[n];
-
     for(int i=0;i<n;i++)
     {
         cout<<"\nEnter Details for Land "<<i+1<<endl;
@@ -96,19 +75,15 @@ int main()
         cout<<"2. Display All Land Details"<<endl;
         cout<<"3. Update Land Details"<<endl;
         cout<<"4. Exit"<<endl;
-
         cout<<"Enter Your Choice: ";
         cin>>choice;
-
         switch(choice)
         {
             case 1:
             {
                 cout<<"Enter Land ID to Search: ";
                 cin>>id;
-
-                found=0;
-
+                found=1;
                 for(int i=0;i<n;i++)
                 {
                     if(l[i].searchLand(id))
@@ -117,15 +92,12 @@ int main()
                         break;
                     }
                 }
-
                 if(found==0)
                 {
                     cout<<"\nLand ID Not Found!"<<endl;
                 }
-
                 break;
             }
-
             case 2:
             {
                 for(int i=0;i<n;i++)
@@ -136,32 +108,31 @@ int main()
             }
             case 3:
             {
+                int updateid;
+                int updateFound=0;
                 cout<<"Enter Land ID to Update: ";
-                cin>>id;
-                found=0;
+                cin>>updateid;
                 for(int i=0;i<n;i++)
                 {
-                    if(l[i].updateLandDetails(id))
+                    if(l[i].searchLand(updateid))
                     {
-                        found=1;
+                        l[i].updateLandDetails();
+                        updateFound=1;
                         break;
                     }
                 }
-                if(found==0)
+                if(updateFound==0)
                 {
                     cout<<"\nLand ID Not Found!"<<endl;
                 }
-
                 break;
             }
             case 4:
                 cout<<"Thank You for Using Land Management System!";
                 break;
-
             default:
                 cout<<"Invalid Choice! Try Again."<<endl;
         }
-
     }while(choice!=4);
     return 0;
 }
