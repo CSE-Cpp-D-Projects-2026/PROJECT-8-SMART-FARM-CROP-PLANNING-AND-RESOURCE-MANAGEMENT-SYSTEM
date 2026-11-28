@@ -112,6 +112,7 @@ public:
 		cout<<"Seed Rate: "<<seedrate<<" Rs"<<endl;
 		cout<<"Water Need: "<<waterneed<<" lts"<<endl;
 	}
+   
 };
 int main()
 {
@@ -135,9 +136,9 @@ int main()
 			duplicate=0;
 			cout<<"Enter Land ID: ";
 			cin>>newId;
-			for(int j=0;j<i;j++)
+			if(l[i].getLandId() == newId)
 			{
-				if(l[j].getLandId()==newId)
+				for(int j=i;j<n-1;j++)
 				{
 					duplicate=1;
 					cout<<"\nLand ID Already Exists!";
